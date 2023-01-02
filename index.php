@@ -23,9 +23,9 @@ if (isset($_POST['submit'])){
             $password = password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]);
 
             // requette pour recupier les login et pour la verification.
-            //$req_login = $user->$bdd->query("SELECT * FROM `utilisateurs` WHERE login='$login';");
-            //$login_verif = mysqli_num_rows($req_login);
-            //if ($login_verif === 0){
+            $req_login = $user->connct()->query("SELECT * FROM `utilisateurs` WHERE login='$login';");
+            $login_verif = mysqli_num_rows($req_login);
+            if ($login_verif === 0){
 
                 //  ajouter le nouveau utilisateur à la base de données
                 $user->register($login, $password, $email, $firstname, $lastname);
@@ -35,9 +35,9 @@ if (isset($_POST['submit'])){
                 // redirection vers la page de connexion.
                 //header("location:connexion.php");
 
-            // } else {
-                // $err_log = 'Le login n\'est pas disponible, Veuillez le changer !';
-            // }
+            } else {
+                $err_log = 'Le login n\'est pas disponible, Veuillez le changer !';
+            }
         } else {
             $err_pass = 'Veiller rentrer le meme password';
         }

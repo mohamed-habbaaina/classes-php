@@ -21,6 +21,11 @@ class User{
         // $this->bdd = new mysqli('localhost', 'root', '', 'classes');
     }
 
+    public function connct(){
+        //  La connexion a la BDD.
+        return $this->bdd;        // $this->bdd = new mysqli('localhost', 'root', '', 'classes');
+    }
+
     public function register($login, $password, $email, $firstname, $lastname){
     
         $this->bdd->query("INSERT INTO `utilisateurs`(`login`, `password`, `email`, `firstname`, `lastname`) VALUES ('$login', '$password', '$email', '$firstname', '$lastname');");
