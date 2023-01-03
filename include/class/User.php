@@ -18,9 +18,10 @@ class User{
     public function __construct(){
         //  La connexion a la BDD.
         $this->bdd = new mysqli($this->servername, $this->username_b, $this->password_b, $this->database);
+
         // $this->bdd = new mysqli('localhost', 'root', '', 'classes');
     }
-
+        //  method pour se connecter.
     public function connct(){
         //  La connexion a la BDD.
         return $this->bdd;        // $this->bdd = new mysqli('localhost', 'root', '', 'classes');
