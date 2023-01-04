@@ -83,8 +83,9 @@ class User{
         session_destroy();//Destruit la session en cours
     }
 
-    public function update(){
-
+    public function update($login, $password, $email, $firstname, $lastname){
+    
+        $this->bdd->query("INSERT INTO `utilisateurs`(`login`, `password`, `email`, `firstname`, `lastname`) VALUES ('$login', '$password', '$email', '$firstname', '$lastname');");
     }
 
     public function isConnected(){

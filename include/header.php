@@ -9,7 +9,7 @@ if (isset($_SESSION['login'])){ ?>
             <li><a href="index.php">Home</a></li>    
             <li><a href="livre-or.php">Le Livre d'Or</a></li>    
             <li><button class="btn_comm" name="deconnect"><a href="include/decconect.php">Se Déconnecter</a></button></li>    
-            <li><button class="btn_comm"><a href="profil.php">Modifier Vous Information</a></button></li> 
+            <li><button class="btn_comm"><a href="include/update.php">Modifier Vous Information !</a></button></li> 
             <li><button class="btn_comm" name="delete"><a href="include/delete.php">Supprimez votre compte !</a></button></li>    
    
         </ul>    
