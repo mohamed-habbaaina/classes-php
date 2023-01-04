@@ -125,4 +125,11 @@ class User{
         $requ_fetch = $req_login->fetch_assoc();
         return $requ_fetch['email'];
     }
+
+    //  
+    public function getFirstname($login){
+        $req_login = $this->bdd->query("SELECT `firstname` FROM `utilisateurs` WHERE login='$login';");
+        $requ_fetch = $req_login->fetch_assoc();
+        return $requ_fetch['firstname'];
+    }
 }
