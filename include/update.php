@@ -1,5 +1,14 @@
 <?php
 session_start();
+
+require_once 'class/User.php';
+$user = new User();
+
+if ($user->isConnected() === false):
+    header('location: ../connexion.php');
+    die('ERREUR DE CONNEXION');    // Mesure de securité.
+endif;
+
 $login = $_SESSION['login'];
 
 //  verifier que l'utilisateur avalider le formulaire. 
