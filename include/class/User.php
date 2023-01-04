@@ -33,22 +33,7 @@ class User{
         return mysqli_num_rows($req_login);
     }
 
-    // $req_login = $user->connct()->query("SELECT * FROM `utilisateurs` WHERE login='$login';");
-    // $login_verif = mysqli_num_rows($req_login);
-// 
-    // if ($user->verif_bdd($login) === 1):
-// 
-        //  verification du passwprd.
-        // $requ_fetch = $req_login->fetch_assoc();
-        // $password_db = $requ_fetch['password'];
-        // var_dump(password_verify($password, $password_db));
-        // die;
-        // if (password_verify($password, $password_db)):
-            
-            
-            
-
-
+    // methode pour enregistrer un user dans la BDD
     public function register($login, $password, $email, $firstname, $lastname){
     
         $this->bdd->query("INSERT INTO `utilisateurs`(`login`, `password`, `email`, `firstname`, `lastname`) VALUES ('$login', '$password', '$email', '$firstname', '$lastname');");
@@ -67,13 +52,14 @@ class User{
     
         }
     
-
+    // methode pour se deconnecter.
     public function disconnect(){
         $_SESSION = array();//Ecraser le tableau de session 
         session_unset(); //Detruit toutes les variables de la session en cours
         session_destroy();//Destruit la session en cours
     }
 
+    // methode pour suprimé un user.
     public function delete($login){
 
         $this->bdd->query("DELETE FROM `utilisateurs` WHERE login='$login';");
@@ -83,17 +69,47 @@ class User{
         session_destroy();//Destruit la session en cours
     }
 
+        // methode pour modifier le profil de user.
     public function update($login, $password, $email, $firstname, $lastname){
     
         $this->bdd->query("INSERT INTO `utilisateurs`(`login`, `password`, `email`, `firstname`, `lastname`) VALUES ('$login', '$password', '$email', '$firstname', '$lastname');");
     }
 
+        // methode pour verifier que le User est bien connecté.
     public function isConnected(){
         if (isset($_SESSION['login'])):
             return true;
         else:
             return false;
         endif;
+    }
+
+    public function getAllInfos($login){
+        $req_login = $this->bdd->query("SELECT * FROM `utilisateurs` WHERE login='$login';");
+        $requ_fetch = $req_login->fetch_assoc();
+        $login = $requ_fetch['login'];
+        $firstname = $requ_fetch['firstname'];
+        $lastname = $requ_fetch['lastname'];
+        $email = $requ_fetch['email'];
+        return
+            '<table>
+                <thead>
+                <tr>
+                <th>login</th>
+                <th>firstname</th>
+                <th>lastname</th>
+                <th>email</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>' . $login . '</td>
+                    <td>' . $firstname . '</td>
+                    <td>' . $lastname . '</td>
+                    <td>' . $email . '</td>
+                    </tr>
+                </tbody>
+            </table>';
     }
 
 

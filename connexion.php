@@ -33,12 +33,7 @@ if (isset($_POST['submit'])):
     else:
         $err[] = 'Login inexistant !';
 endif;
-
-
-
-    // if (isset($login) && isset($password))
-
-
+// echo $user->getAllInfos($login);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
