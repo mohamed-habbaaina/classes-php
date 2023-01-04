@@ -1,9 +1,6 @@
 <?php
 session_start();
 
-require_once 'include/class/User.php';
-$user = new User();
-
 //  verifier que l'utilisateur avalider le formulaire. 
 if (isset($_POST['submit'])){
     $login = htmlspecialchars(strip_tags(trim($_POST['login'])));
@@ -48,17 +45,19 @@ if (isset($_POST['submit'])){
 
     if (empty($err)):
 
-            // requette pour recupier les login et pour la verification.
-            $req_login = $user->connct()->query("SELECT * FROM `utilisateurs` WHERE login='$login';");
-            $login_verif = mysqli_num_rows($req_login);
-            if ($login_verif === 0 ):
+        require_once 'include/class/User.php';
+        $user = new User();
+
+            // la verification des login dans la BDD.
+
+            if ($user->verif_bdd($login) === 0 ):
 
                 //  ajouter le nouveau utilisateur à la base de données
                $user->register($login, $password, $email, $firstname, $lastname);
                 $_SESSION['login'] = $login;
 
                 // redirection vers la page de connexion.
-                //header("location:connexion.php");
+                header("location:connexion.php");
             else:
                 $err[] = '<li>Le login n\'est pas disponible, Veuillez le changer !</li>';
             endif;
@@ -80,7 +79,7 @@ if (isset($_POST['submit'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>POO</title>
+    <title>Inscription</title>
 </head>
 <body>
     <?php require 'include/header.php' ?>
