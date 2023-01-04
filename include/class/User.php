@@ -74,8 +74,13 @@ class User{
         session_destroy();//Destruit la session en cours
     }
 
-    public function delete(){
+    public function delete($login){
 
+        $this->bdd->query("DELETE FROM `utilisateurs` WHERE login='$login';");
+
+        $_SESSION = array();//Ecraser le tableau de session 
+        session_unset(); //Detruit toutes les variables de la session en cours
+        session_destroy();//Destruit la session en cours
     }
 
     public function update(){
