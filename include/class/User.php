@@ -112,6 +112,17 @@ class User{
             </table>';
     }
 
+    //  
+    public function getLogin($login){
+        $req_login = $this->bdd->query("SELECT `login` FROM `utilisateurs` WHERE login='$login';");
+        $requ_fetch = $req_login->fetch_assoc();
+        return $requ_fetch['login'];
+    }
 
-
+    //  
+    public function getLogetEmail(){
+        $req_login = $this->bdd->query("SELECT `email` FROM `utilisateurs` WHERE login='$login';");
+        $requ_fetch = $req_login->fetch_assoc();
+        return $requ_fetch['email'];
+    }
 }
