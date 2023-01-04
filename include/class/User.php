@@ -84,6 +84,7 @@ class User{
         endif;
     }
 
+    //  Methode pour afficher les infos de user.
     public function getAllInfos($login){
         $req_login = $this->bdd->query("SELECT * FROM `utilisateurs` WHERE login='$login';");
         $requ_fetch = $req_login->fetch_assoc();
@@ -112,24 +113,31 @@ class User{
             </table>';
     }
 
-    //  
+    //  Methode pour return le Login.
     public function getLogin($login){
         $req_login = $this->bdd->query("SELECT `login` FROM `utilisateurs` WHERE login='$login';");
         $requ_fetch = $req_login->fetch_assoc();
         return $requ_fetch['login'];
     }
 
-    //  
+    //  Methode pour return l'Email.
     public function getLogetEmail($login){
         $req_login = $this->bdd->query("SELECT `email` FROM `utilisateurs` WHERE login='$login';");
         $requ_fetch = $req_login->fetch_assoc();
         return $requ_fetch['email'];
     }
 
-    //  
+    //  Methode pour return le Firstname.
     public function getFirstname($login){
         $req_login = $this->bdd->query("SELECT `firstname` FROM `utilisateurs` WHERE login='$login';");
         $requ_fetch = $req_login->fetch_assoc();
         return $requ_fetch['firstname'];
+    }
+
+    //  Methode pour return le Lasttname.
+    public function getLastname($login){
+        $req_login = $this->bdd->query("SELECT `lastname` FROM `utilisateurs` WHERE login='$login';");
+        $requ_fetch = $req_login->fetch_assoc();
+        return $requ_fetch['lastname'];
     }
 }
