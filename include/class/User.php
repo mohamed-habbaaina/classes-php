@@ -70,9 +70,10 @@ class User{
     }
 
         // methode pour modifier le profil de user.
-    public function update($login, $password, $email, $firstname, $lastname){
+    public function update($login, $password, $email, $firstname, $lastname, $login_ancien){
     
-        $this->bdd->query("INSERT INTO `utilisateurs`(`login`, `password`, `email`, `firstname`, `lastname`) VALUES ('$login', '$password', '$email', '$firstname', '$lastname');");
+        $this->bdd->query("UPDATE `utilisateurs` SET login='$login', password='$password', email='$email', firstname='$firstname', lastname='$lastname' WHERE login='$login_ancien';");
+
     }
 
         // methode pour verifier que le User est bien connecté.
