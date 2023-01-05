@@ -1,8 +1,10 @@
 <?php
 session_start();
+require_once 'include/class/User-pdo.php';
+$user = new Userpdo();
 
 //  verifier que l'utilisateur avalider le formulaire. 
-if (isset($_POST['submit'])){
+if (isset($_POST['submit'])) {
     $login = htmlspecialchars(strip_tags(trim($_POST['login'])));
     $email = htmlspecialchars(strip_tags(trim($_POST['email'])));
     $firstname = htmlspecialchars(strip_tags(trim($_POST['firstname'])));
@@ -15,7 +17,7 @@ if (isset($_POST['submit'])){
     if (empty($login)):
         $err[] = '<li> Veiller remplir le Login </li>';
     endif;
-    
+
     if (empty($email)):
         $err[] = '<li>Veiller remplir votre Email</li>';
     endif;
@@ -36,7 +38,7 @@ if (isset($_POST['submit'])){
         $err[] = '<li>Veiller confirmer le Password</li>';
     endif;
 
-        // verifier que l'utilisateur a rentrer le meme password. 
+    // verifier que l'utilisateur a rentrer le meme password. 
     if ($password !== $co_password):
         $err[] = '<li>Veiller rentrer le meme password</li>';
     else: //  cryptage du password
@@ -45,32 +47,21 @@ if (isset($_POST['submit'])){
 
     if (empty($err)):
 
-        require_once 'include/class/User.php';
-        $user = new User();
+        // la verification des login dans la BDD.
 
-            // la verification des login dans la BDD.
+        if (empty($user->verif_bdd($login))):
 
-            if ($user->verif_bdd($login) === 0 ):
+            //  ajouter le nouveau utilisateur à la base de données
+            $user->register($login, $password, $email, $firstname, $lastname);
+            $_SESSION['login'] = $login;
 
-                //  ajouter le nouveau utilisateur à la base de données
-               $user->register($login, $password, $email, $firstname, $lastname);
-                $_SESSION['login'] = $login;
-
-                // redirection vers la page de connexion.
-                header("location:connexion.php");
-            else:
-                $err[] = '<li>Le login n\'est pas disponible, Veuillez le changer !</li>';
-            endif;
+            // redirection vers la page de connexion.
+            header("location:connexion.php");
+        else:
+            $err[] = '<li>Le login n\'est pas disponible, Veuillez le changer !</li>';
+        endif;
     endif;
-
-    } //else {
-      //  $errs = ' Veiller remplir tous les champs !';
-   // }
-//}
-
-
-
-
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -78,48 +69,45 @@ if (isset($_POST['submit'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/connection.css">
     <title>Inscription</title>
 </head>
 <body>
     <?php require 'include/header.php' ?>
     <main>
-        <?php
-        if (!empty($err)){
-            $i = 0;
-            while(isset($err[$i])):
-                echo $err[$i];
-                $i++;
-            endwhile;
-        }
-        // if (isset($err_pass)){
-        //     echo $err_pass;
-        // // }
-        // // if (isset($err_log)){
-        // //     echo $err_log;
-        // }
-        ?>
-    <form action="#" method="POST">
-            <label for="login">Login</label>
-            <input type="text" name="login" placeholder="Votre Login">
+        <div class="form">
+            <p class="errs"><?php
+                if (!empty($err)){
+                    $i = 0;
+                    while(isset($err[$i])):
+                        echo $err[$i];
+                        $i++;
+                    endwhile;
+                }
+            ?></p>
+            <form action="#" method="POST">
+                <label for="login">Login</label>
+                <input type="text" name="login" placeholder="Votre Login">
 
-            <label for="email">Email</label>
-            <input type="email" name="email" placeholder="Votre Email">
+                <label for="email">Email</label>
+                <input type="email" name="email" placeholder="Votre Email">
 
-            <label for="prenom">Prénom</label>
-            <input type="text" name="firstname" placeholder="Votre Prénom">
+                <label for="prenom">Prénom</label>
+                <input type="text" name="firstname" placeholder="Votre Prénom">
 
-            <label for="nom">Nom</label>
-            <input type="text" name="lastname" placeholder="Votre Nom">
+                <label for="nom">Nom</label>
+                <input type="text" name="lastname" placeholder="Votre Nom">
 
-            <label for="password">Password</label>
-            <input type="password" name="password" placeholder="Votre Password">
+                <label for="password">Password</label>
+                <input type="password" name="password" placeholder="Votre Password">
 
-            <label for="co_password">Confirme Password</label>
-            <input type="password" name="co_password" placeholder="Confirmé Votre Password">
+                <label for="co_password">Confirme Password</label>
+                <input type="password" name="co_password" placeholder="Confirmé Votre Password">
 
-            <input id="submit" type="submit" value="Valider" name="submit">
-        </form>
+                <input id="submit" type="submit" value="Valider" name="submit">
+            </form>
+        </div>
     </main>
 </body>
 </html>
