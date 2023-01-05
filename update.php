@@ -117,5 +117,6 @@ if (isset($_POST['submit'])){
             <input id="submit" type="submit" value="Valider" name="submit">
         </form>
     </main>
+<script src="js.js"></script>
 </body>
 </html>

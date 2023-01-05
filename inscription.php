@@ -109,5 +109,6 @@ if (isset($_POST['submit'])) {
             </form>
         </div>
     </main>
+<script src="js.js"></script>
 </body>
 </html>
