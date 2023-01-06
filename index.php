@@ -3,8 +3,8 @@ session_start();
 require_once 'include/class/User-pdo.php';
 $user = new Userpdo();
 
-if (isset($_SESSION['login'])):
-$login = $_SESSION['login'];
+if ($user->isConnected() === true):
+    $login = $_SESSION['login'];
 endif;
 ?>
 <!DOCTYPE html>

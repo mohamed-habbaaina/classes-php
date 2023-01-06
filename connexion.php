@@ -30,9 +30,8 @@ if (isset($_POST['submit'])):
                    // Création des variables global de session
                    $_SESSION['login'] = $login;
                    
-                   echo 'Bienvenue' . $login;
                    // redirection vers la page 
-                   // header('location: .php');
+                   header('location: index.php');
                else:
                    $err[] = 'Password ou Login incorect !';
                 endif;
@@ -46,31 +45,38 @@ endif;
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/connection.css">
     <title>Connexion</title>
 </head>
 <body>
     <?php require_once 'include/header.php' ?>
     <main>
-        <?php
-        // l'affichage des erreurs.
-        if (!empty($err)){
-            $i = 0;
-            while(isset($err[$i])):
-                echo $err[$i];
-                $i++;
-            endwhile;
-        }
-        ?>
-    <form action="#" method="POST">
-            <label for="login">Login</label>
-            <input type="text" name="login" <?php if(isset($login)): echo 'value="'. $login . '"'; else: echo 'placeholder="Votre Login"'; endif ?> >
 
-            <label for="password">Password</label>
-            <input type="password" name="password" placeholder="Votre Password" required>
+        <div class="form">
+            <p class="errs"><?php
+            // l'affichage des erreurs.
+            if (!empty($err)){
+                $i = 0;
+                while(isset($err[$i])):
+                    echo $err[$i];
+                    $i++;
+                endwhile;
+            }
+            if(isset($_SESSION['err'])):
+                echo $_SESSION['err'];
+            endif;
+            ?></p>
+            <form action="#" method="POST">
+                <label for="login">Login</label>
+                <input type="text" name="login" <?php if(isset($login)): echo 'value="'. $login . '"'; else: echo 'placeholder="Votre Login"'; endif ?> >
 
-            <input id="submit" type="submit" value="Valider" name="submit">
-        </form>
+                <label for="password">Password</label>
+                <input type="password" name="password" placeholder="Votre Password" required>
+
+                <input id="submit" type="submit" value="Valider" name="submit">
+            </form>
+        </div>
     </main>
 <script src="js.js"></script>
 </body>

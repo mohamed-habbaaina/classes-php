@@ -6,6 +6,7 @@ require_once 'include/class/User-pdo.php';
 $user = new Userpdo();
 
 if ($user->isConnected() === false):
+    $_SESSION['err'] = 'connexion non permise';
     header('location: connexion.php');
     exit();   // Mesure de securité.
 endif;
@@ -59,14 +60,14 @@ if (isset($_POST['submit'])){
 
             // la verification des login dans la BDD.
 
-            if ($user->verif_bdd($login) === 0 || $login === $login_ancien ):
+            if (count($user->verif_bdd($login)) === 0 || $login === $login_ancien ):
 
                 //  ajouter le nouveau utilisateur à la base de données
                $user->update($login, $password, $email, $firstname, $lastname, $login_ancien);
                 $_SESSION['login'] = $login;
 
                 // redirection vers la page de connexion.
-                header("location:connexion.php");
+                header("location:index.php");
             else:
                 $err[] = '<li>Le login n\'est pas disponible, Veuillez le changer !</li>';
             endif;
@@ -79,43 +80,46 @@ if (isset($_POST['submit'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/connection.css">
     <title>Profil</title>
 </head>
 <body>
     <?php require 'include/header.php' ?>
     <main>
-        <h1>Modifier Voter Profil</h1>
-        <?php
-        if (!empty($err)){
-            $i = 0;
-            while(isset($err[$i])):
-                echo $err[$i];
-                $i++;
-            endwhile;
-        }
-        ?>
-    <form action="#" method="POST">
-            <label for="login">Login</label>
-            <input type="text" name="login" value="<?= $login; ?>">
+        <div class="form">
+            <h1 style="padding: 10px 0 0 10px;"> Modifier Voter Profil</h1>
+            <p class="errs"><?php
+            if (!empty($err)){
+                $i = 0;
+                while(isset($err[$i])):
+                    echo $err[$i];
+                    $i++;
+                endwhile;
+            }
+            ?></p>
+            <form action="#" method="POST">
+                <label for="login">Login</label>
+                <input type="text" name="login" value="<?= $login_ancien; ?>">
 
-            <label for="email">Email</label>
-            <input type="email" name="email" placeholder="Votre Email">
+                <label for="email">Email</label>
+                <input type="email" name="email" placeholder="Votre Email">
 
-            <label for="prenom">Prénom</label>
-            <input type="text" name="firstname" placeholder="Votre Prénom">
+                <label for="prenom">Prénom</label>
+                <input type="text" name="firstname" placeholder="Votre Prénom">
 
-            <label for="nom">Nom</label>
-            <input type="text" name="lastname" placeholder="Votre Nom">
+                <label for="nom">Nom</label>
+                <input type="text" name="lastname" placeholder="Votre Nom">
 
-            <label for="password">Password</label>
-            <input type="password" name="password" placeholder="Votre Password">
+                <label for="password">Password</label>
+                <input type="password" name="password" placeholder="Votre Password">
 
-            <label for="co_password">Confirme Password</label>
-            <input type="password" name="co_password" placeholder="Confirmé Votre Password">
+                <label for="co_password">Confirme Password</label>
+                <input type="password" name="co_password" placeholder="Confirmé Votre Password">
 
-            <input id="submit" type="submit" value="Valider" name="submit">
-        </form>
+                <input id="submit" type="submit" value="Valider" name="submit">
+            </form>
+        </div>
     </main>
 <script src="js.js"></script>
 </body>
