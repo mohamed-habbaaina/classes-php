@@ -128,5 +128,38 @@ class Userpdo
                 </table>';
         }
 
+            //  Methode pour return le Login.
+    public function getLogin($login){
 
+        $req_login = $this->bdd->prepare("SELECT `login` FROM `utilisateurs` WHERE login=?;");
+        $req_login->execute(["$login"]);
+        $requ_fetch_ass = $req_login->fetchAll(PDO::FETCH_ASSOC);
+        $login = $requ_fetch_ass[0]['login'];
+        return $login;
+    }
+
+    //  Methode pour return l'Email.
+    public function getLogetEmail($login){
+        $req_login = $this->bdd->prepare("SELECT `email` FROM `utilisateurs` WHERE login=?;");
+        $req_login->execute(["$login"]);
+        $requ_fetch_ass = $req_login->fetchAll(PDO::FETCH_ASSOC);
+        $email = $requ_fetch_ass[0]['email'];
+        return $email;
+    }
+
+    //  Methode pour return le Firstname.
+    public function getFirstname($login){
+        $req_login = $this->bdd->prepare("SELECT `firstname` FROM `utilisateurs` WHERE login=?;");
+        $req_login->execute(["$login"]);
+        $requ_fetch_ass = $req_login->fetchAll(PDO::FETCH_ASSOC);
+        return $requ_fetch_ass[0]['firstname'];
+    }
+
+    //  Methode pour return le Lasttname.
+    public function getLastname($login){
+        $req_login = $this->bdd->prepare("SELECT `lastname` FROM `utilisateurs` WHERE login=?;");
+        $req_login->execute(["$login"]);
+        $requ_fetch_ass = $req_login->fetchAll(PDO::FETCH_ASSOC);
+        return $requ_fetch_ass[0]['lastname'];
+    }
 }
