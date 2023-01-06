@@ -69,5 +69,11 @@ class Userpdo
         $requ_updt->execute(["$login", "$password", "$email", "$firstname", "$lastname" ]);
     }
 
+        // methode pour se deconnecter.
+    public function disconnect(){
+        $_SESSION = array();//Ecraser le tableau de session 
+        session_unset(); //Detruit toutes les variables de la session en cours
+        session_destroy();//Destruit la session en cours
+    }
 
 }
