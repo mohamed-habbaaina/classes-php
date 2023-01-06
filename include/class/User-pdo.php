@@ -63,4 +63,11 @@ class Userpdo
             endif;
     }
 
+    // methode pour modifier le profil de user.
+    public function update($login, $password, $email, $firstname, $lastname, $login_ancien){
+        $requ_updt = $this->bdd->prepare("UPDATE `utilisateurs` SET login=?, password=?, email=?, firstname=?, lastname=? WHERE login='$login_ancien';");
+        $requ_updt->execute(["$login", "$password", "$email", "$firstname", "$lastname" ]);
+    }
+
+
 }
