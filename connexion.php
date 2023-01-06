@@ -74,7 +74,7 @@ endif;
                 <label for="password">Password</label>
                 <input type="password" name="password" placeholder="Votre Password" required>
 
-                <input id="submit" type="submit" value="Valider" name="submit">
+                <input id="submit" type="submit" value="Valider" name="submit" class="btn">
             </form>
         </div>
     </main>

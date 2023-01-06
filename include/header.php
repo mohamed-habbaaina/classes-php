@@ -10,9 +10,9 @@ if ($user->isConnected() === true): ?>
     <nav>
         <ul class="nav_bar">
             <li><a href="index.php">Home</a></li>    
-            <li><button class="btn_comm" name="deconnect"><a href="include/decconect.php">Se Déconnecter</a></button></li>    
-            <li><button class="btn_comm"><a href="update.php">Modifier Vous Information !</a></button></li> 
-            <li><button class="btn_comm" name="delete"><a href="include/delete.php">Supprimez votre compte !</a></button></li>    
+            <li><button class="btn" name="deconnect"><a href="include/decconect.php">Se Déconnecter</a></button></li>    
+            <li><button class="btn"><a href="update.php">Modifier Vous Information !</a></button></li> 
+            <li><button class="btn" name="delete"><a href="include/delete.php">Supprimez votre compte !</a></button></li>    
    
         </ul>    
         <div class="burger">
@@ -27,7 +27,7 @@ if ($user->isConnected() === true): ?>
 
         <!-- header if don't Connected -->
     <header>
-    <a href="index.php"><img src="img/logo.png" alt="logo" class="logo"></a>
+    <a href="index.php"><img src="" alt="logo" class="logo"></a>
     <nav>
         <ul class="nav_bar">
             <li><a href="index.php">Home</a></li>    

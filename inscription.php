@@ -105,7 +105,7 @@ if (isset($_POST['submit'])) {
                 <label for="co_password">Confirme Password</label>
                 <input type="password" name="co_password" placeholder="Confirmé Votre Password">
 
-                <input id="submit" type="submit" value="Valider" name="submit">
+                <input id="submit" type="submit" value="Valider" name="submit" class="btn">
             </form>
         </div>
     </main>
