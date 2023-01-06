@@ -42,5 +42,25 @@ class Userpdo
     }
 
 
-    
+        //  methode pour verifier le Password haché et permettre la connextion.
+        public function connect($login,$password){
+
+            // Recherche de l'utilisateur dans la BD..
+
+        $data = $this->verif_bdd($login);
+        $coun = count($data);   // count le nombre  
+
+            if($coun === 1):
+
+            // recupérer le password de la DB.
+            $password_db = $data[0]['password'];
+
+                // verifier le password Haché.
+                if (password_verify($password, $password_db)):
+                    return true;
+                else: return false;
+                endif;
+            endif;
+    }
+
 }
