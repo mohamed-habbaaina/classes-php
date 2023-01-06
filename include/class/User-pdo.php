@@ -96,4 +96,37 @@ class Userpdo
         endif;
     }
 
+        //  Methode pour afficher les infos de user.
+        public function getAllInfos($login){
+
+            // récupurer la data.
+            $data = $this->verif_bdd($login);
+
+            $login = $data[0]['login'];
+            $firstname = $data[0]['firstname'];
+            $lastname = $data[0]['lastname'];
+            $email = $data[0]['email'];
+
+            return
+                '<table>
+                    <thead>
+                    <tr>
+                    <th>login</th>
+                    <th>firstname</th>
+                    <th>lastname</th>
+                    <th>email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <td>' . $login . '</td>
+                        <td>' . $firstname . '</td>
+                        <td>' . $lastname . '</td>
+                        <td>' . $email . '</td>
+                        </tr>
+                    </tbody>
+                </table>';
+        }
+
+
 }
