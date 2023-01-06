@@ -76,4 +76,15 @@ class Userpdo
         session_destroy();//Destruit la session en cours
     }
 
+        // methode pour suprimé un user.
+    public function delete($login){
+
+        $req_delet = $this->bdd->prepare("DELETE FROM `utilisateurs` WHERE login=?;");
+        $req_delet->execute(["$login"]);
+
+        $_SESSION = array();//Ecraser le tableau de session 
+        session_unset(); //Detruit toutes les variables de la session en cours
+        session_destroy();//Destruit la session en cours
+    }
+
 }
