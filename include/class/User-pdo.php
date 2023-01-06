@@ -87,4 +87,13 @@ class Userpdo
         session_destroy();//Destruit la session en cours
     }
 
+        // methode pour verifier que le User est bien connecté.
+    public function isConnected(){
+        if (isset($_SESSION['login'])):
+            return true;
+        else:
+            return false;
+        endif;
+    }
+
 }
